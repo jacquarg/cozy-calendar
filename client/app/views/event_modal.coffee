@@ -76,7 +76,7 @@ module.exports = class EventModal extends ViewCollection
 
         @calendar = new ComboBox
             el: @$('#basic-calendar')
-            source: app.tags.calendars()
+            source: app.calendars.toAutoCompleteSource()
 
         @$el.modal 'show'
         $(document).on 'keydown', @hideOnEscape
@@ -239,6 +239,7 @@ module.exports = class EventModal extends ViewCollection
         validModel = @model.save data,
             wait: true
             success: =>
+                @calendar.save()
                 @close()
             error: =>
                 alert('server error')
